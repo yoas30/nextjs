@@ -2,23 +2,28 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 type Props = {
-        params: { 
-            noteId: string 
-        }
-}
+    params: { noteId: string };
+    searchParams: Record<string, string | string[] | undefined>;
+};
 
-export const generateMetadata = ({params} : Props) : 
-Metadata => {
+export const generateMetadata = ({ params }: Props): Metadata => {
     return {
-        title: `Note Detail ${params.noteId}`
-    }
-}
+        title: `Note Detail ${params.noteId}`,
+    };
+};
 
-export default function Note({ params } : Props) 
+export default function Note({ params, searchParams} : Props) 
     {
+    console.log (searchParams);
+
     if(parseInt(params.noteId)>100)
     { 
         notFound() 
     }
-    return <h3>Note Detail {params.noteId}</h3>;
+    return (
+        <div>
+            <h3>Note Detail {params.noteId}</h3>
+            {/* <p>Search Params: {JSON.stringify(searchParams)}</p> */}
+        </div>
+    );
 }
